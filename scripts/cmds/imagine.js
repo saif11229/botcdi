@@ -1,9 +1,9 @@
 module.exports = {
   config: {
     name: "imagine",
-    aliases:[""],
+    aliases:["imagine"],
     version: "1.0",
-    author: "♡︎ 𝐻𝑎𝑠𝑎𝑛 ♡︎",
+    author: "𝐻𝑎𝑠𝑎𝑛 🤡",
     countDown: 3, 
     role: 0,
     longDescription: {
