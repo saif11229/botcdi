@@ -28,56 +28,49 @@ module.exports = {
 
     if (isNaN(dice) || dice < 1 || dice > 6) {
       return message.reply(
-        `╭─────────────✧\n` +
-        `│ ❌ Invalid Choice!\n` +
-        `│ 🎲 Pick a number between 1-6\n` +
-        `│ 📝 Usage: ${p}dice <num> <bet>\n` +
-        `│ 🔹 Example: ${p}dice 3 1000\n` +
-        `╰─────────────✧`
+        `🎲 𝗗𝗜𝗖𝗘 𝗚𝗔𝗠𝗘\n` +
+        `❌ 𝗜𝗻𝘃𝗮𝗹𝗶𝗱 𝗖𝗵𝗼𝗶𝗰𝗲!\n` +
+        `🎲 𝗣𝗶𝗰𝗸 𝗮 𝗻𝘂𝗺𝗯𝗲𝗿 𝟭-𝟲\n` +
+        `📝 𝗨𝘀𝗮𝗴𝗲: ${p}dice <num> <bet>\n` +
+        `🔹 𝗘𝘅𝗮𝗺𝗽𝗹𝗲: ${p}dice 3 1000`
       );
     }
     if (isNaN(betAmount) || betAmount <= 0) {
       return message.reply(
-        `╭─────────────✧\n` +
-        `│ ❌ Invalid Bet Amount!\n` +
-        `│ 💰 Enter a valid number\n` +
-        `│ 📝 Usage: ${p}dice <num> <bet>\n` +
-        `│ 🔹 Example: ${p}dice 3 1000\n` +
-        `╰─────────────✧`
+        `🎲 𝗗𝗜𝗖𝗘 𝗚𝗔𝗠𝗘\n` +
+        `❌ 𝗜𝗻𝘃𝗮𝗹𝗶𝗱 𝗕𝗲𝘁 𝗔𝗺𝗺𝗼𝘂𝗻𝘁!\n` +
+        `💰 𝗘𝗻𝘁𝗲𝗿 𝗮 𝘃𝗮𝗹𝗶𝗱 𝗻𝘂𝗺𝗺𝗯𝗲𝗿\n` +
+        `📝 𝗨𝘀𝗮𝗴𝗲: ${p}dice <num> <bet>\n` +
+        `🔹 𝗘𝘅𝗮𝗺𝗽𝗹𝗲: ${p}dice 3 1000`
       );
     }
 
     // Check if user has enough balance
     if (userData.money < betAmount) {
       return message.reply(
-        `╭─────────────✧\n` +
-        `│ 🥲 Insufficient Balance!\n` +
-        `│ 💰 Your Balance: ${userData.money}\n` +
-        `╰─────────────✧`
+        `🎲 𝗗𝗜𝗖𝗘 𝗚𝗔𝗠𝗘\n` +
+        `🥲 𝗜𝗻𝘀𝘂𝗳𝗳𝗶𝗰𝗶𝗲𝗻𝘁 𝗕𝗮𝗹𝗮𝗻𝗰𝗲!\n` +
+        `💰 𝗬𝗼𝘂𝗿 𝗕𝗮𝗹𝗮𝗻𝗰𝗲: ${userData.money}`
       );
     }
 
     // Roll the dice (1 to 6)
     const rolledNumber = Math.floor(Math.random() * 6) + 1;
-    let replyMessage = `╭─────────────✧\n` +
-                       `│ 🎲 Dice Rolled: ${rolledNumber}\n`;
+    let resultText = `🎲 𝗗𝗜𝗖𝗘 𝗥𝗼𝗹𝗹𝗲𝗱 ${rolledNumber}\n`;
 
     if (rolledNumber === dice) {
       const winAmount = betAmount * 2;
       userData.money += winAmount;
-      replyMessage += `│ 😻 You Won! +${winAmount} Coins\n`;
+      resultText += `🎀 𝗬𝗼𝘂 𝗪𝗼𝗻 +${winAmount} 𝗖𝗼𝗶𝗻𝘀\n`;
     } else {
       userData.money -= betAmount;
-      replyMessage += `│ 😿 You Lost -${betAmount} Coins\n`;
+      resultText += `🥺 𝗬𝗼𝘂 𝗟𝗼𝘀𝘁 -${betAmount} 𝗖𝗼𝗶𝗻𝘀\n`;
     }
-
-    replyMessage += `│ 💹 Now Balance: ${userData.money}\n` +
-                    `╰─────────────✧`;
 
     // Update user balance
     await usersData.set(user, userData);
 
     // Send final message
-    message.reply(replyMessage);
+    message.reply(resultText);
   }
 };
